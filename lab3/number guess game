@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>Guess the Number</title>
+  </head>
+  <body>
+
+    <h2>Guess the Number (1 to 100)</h2>
+
+    <input id="guessInput" type="number" placeholder="Enter your guess">
+    <button onclick="checkGuess()">Submit</button>
+    <button onclick="startNewGame()">New Game</button>
+
+    <p id="message"></p>
+
+    <script>
+      let secretNumber;
+      let gameActive;
+
+      function startNewGame() {
+        secretNumber = Math.floor(Math.random() * 100) + 1;
+        gameActive = true;
+        document.getElementById("message").textContent = "New game started. Guess a number!";
+        document.getElementById("guessInput").value = "";
+      }
+
+      function checkGuess() {
+        if (!gameActive) {
+          document.getElementById("message").textContent = "Game over. Click 'New Game' to try again.";
+          return;
+        }
+
+        let guess = parseInt(document.getElementById("guessInput").value);
+
+        if (isNaN(guess) || guess < 1 || guess > 100) {
+          document.getElementById("message").textContent = "Enter a number between 1 and 100.";
+        } else if (guess === secretNumber) {
+          document.getElementById("message").textContent = "Correct! You guessed the number.";
+          gameActive = false;
+        } else if (guess < secretNumber) {
+          document.getElementById("message").textContent = "Too low! Try again.";
+        } else {
+          document.getElementById("message").textContent = "Too high! Try again.";
+        }
+
+        document.getElementById("guessInput").value = "";
+      }
+
+      // Start the first game
+      startNewGame();
+    </script>
+
+  </body>
+</html>
